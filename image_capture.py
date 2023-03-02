@@ -54,24 +54,7 @@ def main():
         ret, frame = cam.read()
  
         # Get timestamp for calculating actual framerate
-        timestamp = cv2.getTickCount()
- 
-        # Each second, decrement countdown
-        if (timestamp - countdown_timestamp) / cv2.getTickFrequency() > 0.2: # switching this to fifths of a second to up framerate to 5
-            countdown_timestamp = cv2.getTickCount()
-            countdown -= 1
-             
-            # When countdown reaches 0, break out of loop to save image
-            if countdown <= 0:
-                # Get new image file name
-                filepath = get_filepath()
-                # Save image
-                cv2.imwrite(filepath, resized)
-                # Start new count down
-                countdown = SECONDS_TO_COUNTDOWN
-                num_images += 1
-                #break
- 
+        
         # Frame resolution
         frame_height = frame.shape[0]
         frame_width = frame.shape[1]
@@ -104,6 +87,25 @@ def main():
         # Press 'q' to exit
         if cv2.waitKey(10) == ord('q'):
             break
+
+        timestamp = cv2.getTickCount()
+ 
+        # Each second, decrement countdown
+        if (timestamp - countdown_timestamp) / cv2.getTickFrequency() > 0.1: # switching this to tenths of a second to up framerate to 10fps
+            countdown_timestamp = cv2.getTickCount()
+            countdown -= 1
+             
+            # When countdown reaches 0, break out of loop to save image
+            if countdown <= 0:
+                # Get new image file name
+                filepath = get_filepath()
+                # Save image
+                cv2.imwrite(filepath, resized)
+                # Start new count down
+                countdown = SECONDS_TO_COUNTDOWN
+                num_images += 1
+                #break
+ 
  
     # Clean up
     cam.release()
