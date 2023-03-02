@@ -132,3 +132,7 @@ dmypy.json
 # Contents of the directory for captured images
 new_images/
 !new_images/this_is_where_new_images_end_up.txt
+
+# Contents of the directory for captured images
+Classified_Images/
+!Classified_Images/sort_classified_images_here.txt
