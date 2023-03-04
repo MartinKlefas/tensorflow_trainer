@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Settings
 file_num = 0
-save_path = "./new_images/"      # Save images to subfolder of current directory
+save_path = "./new_images/"      # Save images to subfolders of current directory
 file_suffix = ".png"  # Extension for image file
 TO_COUNTDOWN = 3
 
