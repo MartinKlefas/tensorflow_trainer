@@ -51,4 +51,4 @@ for i, (image, label) in enumerate(test_data.gen_dataset().unbatch().take(100)):
                           test_data.index_to_label[label.numpy()])
   ax.xaxis.label.set_color(color)
   plt.xlabel('Predicted: %s' % predict_label)
-plt.show()
+plt.savefig('classifier_test.png')

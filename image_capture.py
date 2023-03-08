@@ -7,7 +7,7 @@ from pathlib import Path
 file_num = 0
 save_path = "./new_images/"      # Save images to subfolders of current directory
 file_suffix = ".png"  # Extension for image file
-TO_COUNTDOWN = 3
+TO_COUNTDOWN = 2
 
 
 def validate_folder(folderPath):
@@ -100,10 +100,10 @@ def main():
             cropped = frame[start_y:end_y, start_x:end_x]
     
             # Rezise to 96*96
-            resized = cv2.resize(cropped, (720,720), interpolation=cv2.INTER_CUBIC)
+            resized = cv2.resize(cropped, (214,214), interpolation=cv2.INTER_CUBIC)
     
             # Put text only on copied image
-            copy = resized.copy()
+            copy = cropped.copy()
             # Draw count of images shot on image
             cv2.putText(copy, thisClass,(10,50), cv2.FONT_HERSHEY_PLAIN, 4, (255, 255, 255),2)
             cv2.putText(copy, 
@@ -117,10 +117,12 @@ def main():
             # Display raw camera image
             cv2.imshow('Kaamera', copy)
     
-            keyPressed = cv2.waitKey(10)
+            keyPressed = cv2.waitKey(3)
             if keyPressed == ord('n'):
                 # Press 'n' to move to next image type
+                a = cv2.waitKey(20)
                 break
+                
             elif keyPressed == ord('q'):
                 # Press 'q' to exit
                 quitAllTheWay = True
@@ -129,7 +131,7 @@ def main():
             timestamp = cv2.getTickCount()
     
             # Each tenth second, decrement countdown
-            if (timestamp - countdown_timestamp) / cv2.getTickFrequency() > 0.1: # switching this to tenths of a second to up framerate to 10fps
+            if (timestamp - countdown_timestamp) / cv2.getTickFrequency() > 0.01: # switching this to tenths of a second to up framerate to 10fps
                 countdown_timestamp = cv2.getTickCount()
                 countdown -= 1
                 
@@ -138,8 +140,8 @@ def main():
                     # Get new image file name
                     filepath = get_filepath(tFolder)
                     # Save image
-                    outputSize = cv2.resize(resized,[214,214])
-                    cv2.imwrite(filepath, outputSize)
+                    #outputSize = cv2.resize(resized,[214,214])
+                    cv2.imwrite(filepath, resized)
                     # Start new count down
                     countdown = TO_COUNTDOWN
                     num_images += 1
